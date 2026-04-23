@@ -1,0 +1,56 @@
+Questão 6)
+
+Código: 
+
+# leitura dos dígitos binários
+lb x10, 1025(x0)       # lê o primeiro dígito (bit mais significativo) para x10
+lb x11, 1025(x0)       # lê o segundo dígito para x11
+lb x12, 1025(x0)       # lê o terceiro dígito para x12
+lb x13, 1025(x0)       # lê o quarto dígito (bit menos significativo) para x13
+
+# conversão de ASCII para inteiros (0 ou 1)
+addi x10, x10, -48     # converte x10 para inteiro
+addi x11, x11, -48     # converte x11 para inteiro
+addi x12, x12, -48     # converte x12 para inteiro
+addi x13, x13, -48     # converte x13 para inteiro
+
+# cálculo do valor decimal a partir dos bits binários
+# x14 = (x10 * 8) + (x11 * 4) + (x12 * 2) + x13
+
+slli x14, x10, 3       # x14 = x10 * 8 (primeiro bit, peso 8)
+slli x15, x11, 2       # x15 = x11 * 4 (segundo bit, peso 4)
+add x14, x14, x15      # x14 += x15
+
+slli x15, x12, 1       # x15 = x12 * 2 (terceiro bit, peso 2)
+add x14, x14, x15      # x14 += x15
+
+add x14, x14, x13      # x14 += x13 (quarto bit, peso 1)
+
+jal x0, valida
+
+valida:
+lui x29, 0x0
+addi x29, x29, 0x8c
+slli x14, x14, 2
+add x29, x29, x14
+lw x30, 0(x29)
+addi x5, x0, 1029
+andi x31, x30, 0x3F
+sb x31, 0(x5)
+addi x5, x0, 1027
+srli x30, x30, 6
+andi x30, x30, 0x01
+sb x30, 0(x5)
+jal x0, fim
+
+limpa:
+addi x5, x0, 1029
+addi x30, x0, 0
+sb x30, 0(x5)
+addi x5, x0, 1027
+sb x30, 0(x5)
+jal x0, fim
+
+fim:
+halt
+digitos: .word 0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F

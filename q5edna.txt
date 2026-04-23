@@ -1,0 +1,75 @@
+Questão 5)
+
+# pino 8 led vermelho esquerda, pino 9 vermelho direita 
+# pino 10 led amarelo esquerda ,pino 11 amarelo direita
+# pino 12 led verde esquerda, pino 13 verde direita
+#sensor A0
+
+CÓDIGO:
+
+# leio valor do sensor e o salvo
+lb x11, 0(x0)          #  posição 0 na memória pdo registrador x11 
+sb x11, 1030(x0)       #  o valor de x11 na posição 1030 sensorA0
+
+# # Defino os limites da temperatura do sensor
+addi x12, x0, 0b1011100000   # x12 = 736, representa o limite superior de 36°C
+addi x13, x0, 0b1001111010   # x13 = 634, representa o limite de 31°C
+addi x14, x0, 0b1000010011   # x14 = 531, representa o limite de 26°C
+addi x15, x0, 0b0110101101   # x15 = 429, representa o limite de 21°C
+addi x16, x0, 0b0101000111   # x16 = 327, representa o limite inferior de 16°C
+
+# rotinasfunções do codigo
+maiorque36
+    addi x5, x0, 0b00000001  # Configura x5 = 0b00000001  para temperaturas = 36°C)
+    sb x5, 1027(x0)          # Salva o valor 0b00000001 na posição 1027
+    beq x0, x0, zerar       # Salta para a rotina de limpeza
+
+maiorque31
+    addi x5, x0, 0b00000010  # Configura x5 = 0b00000010  para 31°C = temperaturas  36°C)
+    sb x5, 1027(x0)          # Salva o valor 0b00000010 na posição 1027
+    beq x0, x0, zerar       # Salta para a rotina de limpeza
+
+maiorque26
+    addi x5, x0, 0b00001000  # Configura x5 = 0b00001000  26°C = temperaturas  31°C)
+    sb x5, 1027(x0)          # Salva o valor 0b00001000 na posição 1027
+    beq x0, x0, zerar       # Salta para a rotina de limpeza
+
+maiorque21
+    addi x5, x0, 0b00100000  # Configura x5 = 0b00100000  21°C = temperaturas  26°C)
+    sb x5, 1027(x0)          # Salva o valor 0b00100000 na posição 1027
+    beq x0, x0, zerar       # Salta para a rotina de limpeza
+
+maiorque16
+    addi x5, x0, 0b00010000  # Configura x5 = 0b00010000  para 16°C = temperaturas  21°C)
+    sb x5, 1027(x0)          # Salva o valor 0b00010000 na posição 1027
+    beq x0, x0, zerar       # Salta para a rotina de limpeza
+
+reset
+    addi x5, x0, 0b00000100  # Configura x5 = 0b00000100 (LED amarelo para temperaturas  16°C)
+    sb x5, 1027(x0)          # Salva o valor 0b00000100 na posição 1027
+    beq x0, x0, zerar       # Salta para a rotina de limpeza
+
+zerar
+    sb x0, 1027(x0)           # Escreve 0 na posição 1027 para desligar todos os LEDs
+    beq x0, x0, inicio          # volto sempre para o início do inicio sempre true
+
+# loop infinito basicamente
+inicio
+    lh x11, 1031(x0)         # Leio o valor atual do sensor A0 e salvo na posição 1031
+    # verifica se for satisfaz a codição( ser maior que) e se for verdadeiro vai para a rotina indicada 
+
+    # Verificação da faixa de valores do sensor em ordem decrescente
+    bge x11, x12, maiorque36   # Se x11 = 736, indica temperatura = 36°C
+    bge x11, x13, maiorque31   # Se 634 = x11  736, indica 31°C = temperatura  36°C
+    bge x11, x14, maiorque26   # Se 531 = x11  634, indica 26°C = temperatura  31°C
+    bge x11, x15, maiorque21   # Se 429 = x11  531, indica 21°C = temperatura  26°C
+    bge x11, x16, maiorque16   # Se 327 = x11  429, indica 16°C = temperatura  21°C
+
+    beq x0, x0, reset          #  quando nenhuma condição for atendida vai para reset (temperatura  16°C) Led amarelo esquerdo
+
+RESPOSTAS:
+
+# tempo de execução  6.42 segundos(para 100hz)
+# a taxa de leitura é 3,4 leituras por segundo
+# para a taxa de leitura  ocorrer speed up de 5x (sendo 100hz de inicio)( 17 leiturassegundo) a frequência do clock deve ser 500 Hz
+# Sim, porém deve aumentar o clock para o ter o resultado deseja

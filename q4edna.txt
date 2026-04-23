@@ -1,0 +1,119 @@
+Questão 4:
+
+Alternativa A)
+
+CÓDIGO:
+
+main:
+#Carregar os valores da memória
+lw x11, 0(x11)        # x11 (t0) = Dividendo
+addi x11, x0, 12345   # x11 (t0) = Dividendo (12345)
+lw x12, 0(x12)        # x12 (t1) = Divisor
+addi x12, x0, 123     # x12 (t1) = Divisor (123)
+sw x0, 0(x13)         # Inicializar quociente com 0 (sw = store word)
+sw x0, 0(x14)         # Inicializar resto com 0 (sw = store word)
+addi x15, x0, 16      # x15 (t2) = Número de bits (máximo de 16 ciclos)
+
+#Alinhamento do divisor ao bit mais significativo do dividendo
+align_divisor:
+sll x12, x12, 1             # Deslocar divisor à esquerda
+blt x12, x11, align_divisor # Repetir enquanto divisor < dividendo
+srl x12, x12, 1             # Deslocar divisor de volta à direita uma vez
+
+#Início do loop de divisão
+division_loop:
+sub x16, x11, x12          # x16 (t3) = Tentativa de subtração (dividendo - divisor)
+blt x16, x0, skip_sub      # Se resultado < 0, pular subtração
+add x11, x16, x0           # Atualizar o resto com o valor subtraído
+sll x13, x13, 1            # Deslocar quociente à esquerda
+addi x13, x13, 1           # Adicionar 1 ao quociente
+beq x0, x0, next_iteration # Ir para a próxima iteração
+
+skip_sub:
+sll x13, x13, 1            # Deslocar quociente à esquerda (gerar 0 no quociente)
+
+next_iteration:
+srl x12, x12, 1            # Deslocar divisor à direita
+addi x15, x15, -1          # Decrementar o contador de bits
+bne x15, x0, division_loop # Repetir enquanto contador não chegar a zero
+
+#Armazenar o resultado final (quociente e resto) na memória
+sw x13, 0(x13)             # Armazenar o quociente na memória
+sw x11, 0(x14)             # Armazenar o resto na memória
+
+halt #Finaliza o programa
+
+TEMPO DE EXECUÇÃO:
+
+Inicialização: 13 ciclos
+Alinhamento do divisor: 48 ciclos
+Loop de divisão: 144 ciclos
+Armazenamento dos resultados: 10 ciclos
+Tempo máximo de execução = 215 ciclos
+
+Alternativa B)
+
+CÓDIGO:
+
+main:
+#Input
+input_output:
+lb x11, 1025(x0)
+lb x12, 1025(x0)
+
+#Carregar os valores da memória
+sw x0, 0(x13)         # Inicializar quociente com 0 (sw = store word)
+sw x0, 0(x14)         # Inicializar resto com 0 (sw = store word)
+addi x15, x0, 16      # x15 (t2) = Número de bits (máximo de 16 ciclos)
+
+#Alinhamento do divisor ao bit mais significativo do dividendo
+align_divisor:
+sll x12, x12, 1             # Deslocar divisor à esquerda
+blt x12, x11, align_divisor # Repetir enquanto divisor < dividendo
+srl x12, x12, 1             # Deslocar divisor de volta à direita uma vez
+
+#Início do loop de divisão
+division_loop:
+sub x16, x11, x12          # x16 (t3) = Tentativa de subtração (dividendo - divisor)
+blt x16, x0, skip_sub      # Se resultado < 0, pular subtração
+add x11, x16, x0           # Atualizar o resto com o valor subtraído
+sll x13, x13, 1            # Deslocar quociente à esquerda
+addi x13, x13, 1           # Adicionar 1 ao quociente
+beq x0, x0, next_iteration # Ir para a próxima iteração
+
+skip_sub:
+sll x13, x13, 1            # Deslocar quociente à esquerda (gerar 0 no quociente)
+
+next_iteration:
+srl x12, x12, 1            # Deslocar divisor à direita
+addi x15, x15, -1          # Decrementar o contador de bits
+bne x15, x0, division_loop # Repetir enquanto contador não chegar a zero
+
+#Output
+sb x13, 1024(x0)
+sb x14, 1024(x0)
+
+halt #Finaliza o programa
+
+TEMPO DE EXECUÇÃO:
+
+Ciclos iniciais: 5 ciclos
+Loop de alinhamento: 16 ciclos
+Loop de divisão: 144 ciclos
+Ciclos finais: 3 ciclos
+Total máximo de ciclos: 168 ciclos
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,309 @@
+Questão 2)
+
+Código:
+
+main:
+   	 lw x5, 0(x0)
+
+loop:
+lb x10, 1025(x0) # Lê do teclado
+	beq x10, x0, end
+
+    # Verifica se o caractere é Barra de Espaço (código ASCII 32)
+    addi x6, x0, 32   # Carrega o código ASCII para Barra de Espaco
+    beq x10, x6, save_pontua # Se for Barra de Espaço, salva a pontuação e zera x5    
+
+    addi x9, x0, 65    # A
+    bne x9, x10, caso1
+    addi x5, x5, 3
+    caso1:
+
+    addi x9, x0, 97    # a
+    bne x9, x10, caso2
+    addi x5, x5, 3
+    caso2:
+
+    addi x9, x0, 69    # E
+    bne x9, x10, caso3
+    addi x5, x5, 3
+    caso3:
+
+    addi x9, x0, 101   # e
+    bne x9, x10, caso4
+    addi x5, x5, 3
+    caso4:
+
+    addi x9, x0, 73    # I
+    bne x9, x10, caso5
+    addi x5, x5, 3
+    caso5:
+
+    addi x9, x0, 105   # i
+    bne x9, x10, caso6
+    addi x5, x5, 3
+    caso6:
+
+    addi x9, x0, 79    # O
+    bne x9, x10, caso7
+    addi x5, x5, 3
+    caso7:
+
+    addi x9, x0, 111   # o
+    bne x9, x10, caso8
+    addi x5, x5, 3
+    caso8:
+
+    addi x9, x0, 85    # U
+    bne x9, x10, caso9
+    addi x5, x5, 3
+    caso9:
+
+    addi x9, x0, 117   # u
+    bne x9, x10, caso10
+    addi x5, x5, 3
+    caso10:
+    
+    addi x9, x0, 68    # D
+    bne x9, x10, caso11
+    addi x5, x5, 1
+    caso11:
+
+    addi x9, x0, 100   # d
+    bne x9, x10, caso12
+    addi x5, x5, 1
+    caso12:
+
+    addi x9, x0, 71    # G
+    bne x9, x10, caso13
+    addi x5, x5, 1
+    caso13:
+
+    addi x9, x0, 103   # g
+    bne x9, x10, caso14
+    addi x5, x5, 1
+    caso14:
+
+    addi x9, x0, 84    # T
+    bne x9, x10, caso15
+    addi x5, x5, 1
+    caso15:
+
+    addi x9, x0, 116   # t
+    bne x9, x10, caso16
+    addi x5, x5, 1
+    caso16:
+    
+    addi x9, x0, 66    # B
+    bne x9, x10, caso17
+    addi x5, x5, 4
+    caso17:
+
+    addi x9, x0, 98    # b
+    bne x9, x10, caso18
+    addi x5, x5, 4
+    caso18:
+
+    addi x9, x0, 67    # C
+    bne x9, x10, caso19
+    addi x5, x5, 4
+    caso19:
+
+    addi x9, x0, 99    # c
+    bne x9, x10, caso20
+    addi x5, x5, 4
+    caso20:
+
+    addi x9, x0, 77    # M
+    bne x9, x10, caso21
+    addi x5, x5, 4
+    caso21:
+
+    addi x9, x0, 109   # m
+    bne x9, x10, caso22
+    addi x5, x5, 4
+    caso22:
+
+    addi x9, x0, 78    # N
+    bne x9, x10, caso23
+    addi x5, x5, 4
+    caso23:
+
+    addi x9, x0, 110   # n
+    bne x9, x10, caso24
+    addi x5, x5, 4
+    caso24:
+
+    addi x9, x0, 80    # P
+    bne x9, x10, caso25
+    addi x5, x5, 4
+    caso25:
+
+    addi x9, x0, 112   # p
+    bne x9, x10, caso26
+    addi x5, x5, 4
+    caso26:
+    
+    addi x9, x0, 70    # F
+    bne x9, x10, caso27
+    addi x5, x5, 2
+    caso27:
+
+    addi x9, x0, 102   # f
+    bne x9, x10, caso28
+    addi x5, x5, 2
+    caso28:
+
+    addi x9, x0, 72    # H
+    bne x9, x10, caso29
+    addi x5, x5, 2
+    caso29:
+
+    addi x9, x0, 104   # h
+    bne x9, x10, caso30
+    addi x5, x5, 2
+    caso30:
+
+    addi x9, x0, 86    # V
+    bne x9, x10, caso31
+    addi x5, x5, 2
+    caso31:
+
+    addi x9, x0, 118   # v
+    bne x9, x10, caso32
+    addi x5, x5, 2
+    caso32:
+
+    addi x9, x0, 87    # W
+    bne x9, x10, caso33
+    addi x5, x5, 2
+    caso33:
+
+    addi x9, x0, 119   # w
+    bne x9, x10, caso34
+    addi x5, x5, 2
+    caso34:
+
+    addi x9, x0, 89    # Y
+    bne x9, x10, caso35
+    addi x5, x5, 2
+    caso35:
+
+    addi x9, x0, 121   # y
+    bne x9, x10, caso36
+    addi x5, x5, 2
+    caso36:
+    
+    addi x9, x0, 75    # K
+    bne x9, x10, caso37
+    addi x5, x5, 5
+    caso37:
+
+    addi x9, x0, 107   # k
+    bne x9, x10, caso38
+    addi x5, x5, 5
+    caso38:
+
+    addi x9, x0, 82    # R
+    bne x9, x10, caso39
+    addi x5, x5, 5
+    caso39:
+
+    addi x9, x0, 114   # r
+    bne x9, x10, caso40
+    addi x5, x5, 5
+    caso40:
+
+    addi x9, x0, 83    # S
+    bne x9, x10, caso41
+    addi x5, x5, 5
+    caso41:
+
+    addi x9, x0, 115   # s
+    bne x9, x10, caso42
+    addi x5, x5, 5
+    caso42:
+    
+   addi x9, x0, 74    # J
+    bne x9, x10, caso43
+    addi x5, x5, 8
+    caso43:
+
+    addi x9, x0, 106   # j
+    bne x9, x10, caso44
+    addi x5, x5, 8
+    caso44:
+    
+    addi x9, x0, 76    # L
+    bne x9, x10, caso45
+    addi x5, x5, 8
+    caso45:
+
+    addi x9, x0, 108   # l
+    bne x9, x10, caso46
+    addi x5, x5, 8
+    caso46:
+
+    addi x9, x0, 88    # X
+    bne x9, x10, caso47
+    addi x5, x5, 8
+    caso47:
+
+    addi x9, x0, 120   # x
+    bne x9, x10, caso48
+    addi x5, x5, 8
+    caso48:
+    
+    addi x9, x0, 81    # Q
+    bne x9, x10, caso49
+    addi x5, x5, 6
+    caso49:
+
+    addi x9, x0, 113   # q
+    bne x9, x10, caso50
+    addi x5, x5, 6
+    caso50:
+
+    addi x9, x0, 90    # Z
+    bne x9, x10, caso51
+    addi x5, x5, 6
+    caso51:
+
+    addi x9, x0, 122   # z
+    bne x9, x10, caso52
+    addi x5, x5, 6
+    caso52:jal x13, loop #Volta pro loop
+
+save_pontua:
+    add x7, x5, x0   # x7 = x5 (adiciona x0 a x5, efetivamente copiando o valor de x5 para x7)
+    
+    # Zera x5
+    xor x5, x5, x5   # x5 = 0 (zera x5)
+    
+    # Após salvar e zerar, o código continua
+    jal x13, loop     # Volta pro loop
+
+end:
+    addi x7, x7, 48
+    sb x7, 1024(x0)
+    addi x5, x5, 48
+    sb x5, 1024(x0)
+
+	beq x7, x5, print_e   # Se x7 == x5, vai para print_e
+    blt x7, x5, print_d
+	blt x5, x7, print_v   # Se x7 < x5, vai para print_d
+    # Caso contrário (x7 > x5), segue para print_v
+
+print_v:
+    addi x8, x0, 86       # Carrega 'V' (ASCII 86) em x8
+    sb x8, 1024(x0)       # Salva 'V' no endereço 1024(x0)
+    halt           # Finaliza o programa
+
+print_d:
+    addi x8, x0, 68       # Carrega 'D' (ASCII 68) em x8
+    sb x8, 1024(x0)       # Salva 'D' no endereço 1024(x0)
+    halt          # Finaliza o programa
+
+print_e:
+    addi x8, x0, 69       # Carrega 'E' (ASCII 69) em x8
+    sb x8, 1024(x0)       # Salva 'E' no endereço 1024(x0)
+    halt           # Finaliza o programa
