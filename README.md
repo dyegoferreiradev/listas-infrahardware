@@ -31,9 +31,11 @@ Para rodar qualquer um dos scripts deste repositório:
 
 1. Faça o download ou clone este repositório.
 2. Abra o aplicativo **CompSim**.
-3. Carregue o arquivo do código-fonte no ambiente de edição do simulador.
-4. Utilize a interface de periféricos do CompSim (como o *Simple Keyboard* e *Simple Video*) caso a questão exija entrada e saída de dados.
-5. Execute o código em modo de ciclo (Passo a Passo) ou execução contínua para observar o estado dos registradores e da memória.
+   Download: [CompSim](http://compsim.crato.ifce.edu.br/download.html)
+   
+4. Carregue o arquivo do código-fonte no ambiente de edição do simulador.
+5. Utilize a interface de periféricos do CompSim (como o *Simple Keyboard* e *Simple Video*) caso a questão exija entrada e saída de dados.
+6. Execute o código em modo de ciclo (Passo a Passo) ou execução contínua para observar o estado dos registradores e da memória.
 
 ---
 *Repositório criado para fins acadêmicos e consulta de estudos de arquitetura RISC-V.*
